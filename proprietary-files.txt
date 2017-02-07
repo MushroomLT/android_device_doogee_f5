@@ -534,6 +534,9 @@ system/lib64/libmtksqlite3_android.so
 system/bin/fpsvcd
 system/bin/akmd09911
 system/bin/program_binary_service
+system/bin/test64/fpsvcd/auto_test.sh
+system/bin/test64/fpsvcd/fpsvcd_c
+system/bin/test64/fpsvcd/fpsvcd_s
 system/lib/libcam.hal3a.v3.dng.so
 system/lib64/libcam.hal3a.v3.dng.so
 system/lib/libmmsdkservice.feature.so

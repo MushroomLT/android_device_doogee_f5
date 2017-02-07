@@ -26,6 +26,7 @@ PRODUCT_COPY_FILES += \
 	device/doogee/f5/root/init.ssd.rc:root/init.ssd.rc \
 	device/doogee/f5/root/init.storage.rc:root/init.storage.rc \
 	device/doogee/f5/root/init.xlog.rc:root/init.xlog.rc \
+	device/doogee/f5/root/init.usb.rc:root/init.usb.rc \
 	device/doogee/f5/root/init.mt6735.usb.rc:root/init.mt6735.usb.rc \
 	device/doogee/f5/root/init.recovery.mt6735.rc:root/init.recovery.mt6735.rc \
 	device/doogee/f5/root/init.aee.rc:root/init.aee.rc \
@@ -37,6 +38,15 @@ PRODUCT_COPY_FILES += \
 	device/doogee/f5/root/meta_init.modem.rc:root/meta_init.modem.rc \
 	device/doogee/f5/root/factory_init.rc:root/factory_init.rc \
 	device/doogee/f5/root/factory_init.project.rc:root/factory_init.project.rc
+	
+	# Fingerprint support
+	PRODUCT_PACKAGES += fp
+	PRODUCT_PACKAGES += slfpcal
+	PRODUCT_PACKAGES += libslfpjni
+	PRODUCT_PACKAGES += libsileadinc_dev
+
+	include device/elephone/p8000/Fingerprint/slfpcal/Android.mk
+	include device/elephone/p8000/Fingerprint/fp/Android.mk
 	
 	# TODO: Add correct permissions
 #PRODUCT_COPY_FILES += \
@@ -50,7 +60,7 @@ $(call inherit-product, build/target/product/full.mk)
 
 #PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=0 \
-persist.sys.usb.config=mtp,adb \
+persist.sys.usb.config=mtp \
 persist.service.acm.enable=0 \
 persist.service.adb.enable=1 \
 ro.secure=0 \

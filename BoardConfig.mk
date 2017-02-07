@@ -26,6 +26,13 @@ BOARD_EGL_CFG := device/doogee/f5/configs/egl.cfg
 # system.prop
 TARGET_SYSTEM_PROP := device/doogee/f5/system.prop
 
+# CyanogenMod Hardware Hooks
+BOARD_HARDWARE_CLASS := device/doogee/f5/cmhw/
+
+# Fingerprint Sensor
+VANZO_FEATURE_ADD_SILEADINC_FP := yes
+VANZO_FEATURE_FACTORYMODE_USE_ENGLISH := yes
+
 # Recovery
 RECOVERY_FSTAB_VERSION := 2
 BOARD_HAS_NO_SELECT_BUTTON := true
