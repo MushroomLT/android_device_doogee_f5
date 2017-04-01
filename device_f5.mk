@@ -42,11 +42,11 @@ PRODUCT_COPY_FILES += \
 	# Fingerprint support
 	PRODUCT_PACKAGES += fp
 	PRODUCT_PACKAGES += slfpcal
-	PRODUCT_PACKAGES += libslfpjni
-	PRODUCT_PACKAGES += libsileadinc_dev
+	#PRODUCT_PACKAGES += libslfpjni
+	#PRODUCT_PACKAGES += libsileadinc_dev
 
-	include device/doogee/f5/Fingerprint/slfpcal/Android.mk
-	include device/doogee/f5/Fingerprint/fp/Android.mk
+	#include device/doogee/f5/Fingerprint/slfpcal/Android.mk
+	#include device/doogee/f5/Fingerprint/fp/Android.mk
 	
 	# TODO: Add correct permissions
 #PRODUCT_COPY_FILES += \
