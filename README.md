@@ -2,7 +2,7 @@
 Doogee F5 CyanogenMod device tree repository
 
 Currently
-* Everything works, except for the fingerprint sensor
+* Everything works.
 
 Bugs
 * Internal storage is mounted as a subdirectory named 0 on the actual storage
