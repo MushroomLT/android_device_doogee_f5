@@ -56,6 +56,11 @@ PRODUCT_COPY_FILES += device/doogee/f5/recovery/twrp.fstab:recovery/root/etc/twr
 #	frameworks/native/data/etc/android.software.app_widgets.xml:system/etc/permissions/android.software.app_widgets.xml \
 #	frameworks/native/data/etc/android.hardware.audio.output.xml:system/etc/permissions/android.hardware.audio.output.xml
 
+#keylayout to ignore the new input device 'silead-vinput-keypad'
+PRODUCT_COPY_FILES += \
+    device/doogee/f5/keylayout/silead-vinput-keypad.kl:system/usr/keylayout/silead-vinput-keypad.kl \
+    device/doogee/f5/keylayout/silead-vinput-keypad.kcm:system/usr/keychars/silead-vinput-keypad.kcm
+
 PRODUCT_COPY_FILES += \
     	device/doogee/f5/root/etc/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf
 
