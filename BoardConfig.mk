@@ -3,6 +3,9 @@
 
 TARGET_BOOTLOADER_BOARD_NAME := x5607_dg_a32
 
+# needed for mass storage mode
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
+
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 selinux=0
 BOARD_KERNEL_BASE := 0x4dffff00
 BOARD_KERNEL_PAGESIZE := 2048
@@ -36,6 +39,7 @@ VANZO_FEATURE_FACTORYMODE_USE_ENGLISH := yes
 # Recovery
 RECOVERY_FSTAB_VERSION := 2
 BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness\"
 
 # Mediatek flags
 #BOARD_HAS_MTK_HARDWARE := true

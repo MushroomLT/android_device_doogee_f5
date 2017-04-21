@@ -10,4 +10,7 @@ cd ../../..
 cd frameworks/opt/telephony
 git apply -v ../../../device/doogee/f5/patches/framework_opt_telephony/0002_mobile_data_patch_mt6753.patch
 cd ../../..
+cd vendor/doogee/f5
+git apply -v ../../../device/doogee/f5/patches/vendor_doogee_f5/0001-Fix-so-that-fingerprint-sensor-is-recognized-by-Mush.patch
+cd ../../..
 echo Patches Applied Successfully!
