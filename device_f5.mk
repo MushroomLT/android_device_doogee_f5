@@ -39,6 +39,9 @@ PRODUCT_COPY_FILES += \
 	device/doogee/f5/root/factory_init.rc:root/factory_init.rc \
 	device/doogee/f5/root/factory_init.project.rc:root/factory_init.project.rc
 	
+# TWRP thanks to Hanuma50
+PRODUCT_COPY_FILES += device/doogee/f5/recovery/twrp.fstab:recovery/root/etc/twrp.fstab	
+	
 	# Fingerprint support
 	PRODUCT_PACKAGES += fp
 	PRODUCT_PACKAGES += slfpcal
