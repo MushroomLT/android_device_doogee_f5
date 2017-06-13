@@ -1,53 +1,71 @@
-# inherit from the proprietary version
--include vendor/doogee/f5/BoardConfigVendor.mk
+#
+# Copyright (C) 2016 The CyanogenMod Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-TARGET_BOOTLOADER_BOARD_NAME := x5607_dg_a32
+# Device path
+LOCAL_PATH := device/elephone/p8000
 
-# needed for mass storage mode
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
+# Device board elements
+include $(LOCAL_PATH)/PlatformConfig.mk
+include $(LOCAL_PATH)/board/*.mk
 
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 selinux=0
-BOARD_KERNEL_BASE := 0x4dffff00
-BOARD_KERNEL_PAGESIZE := 2048
+TARGET_BOOTLOADER_BOARD_NAME := mt6753
+TARGET_NO_BOOTLOADER := true
 
-# fix this up by examining /proc/mtd on a running device
-BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2516582400
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 12496404480
-BOARD_CACHEIMAGE_PARTITION_SIZE := 419430400
-BOARD_FLASH_BLOCK_SIZE := 131072
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0xF2080100 --ramdisk_offset 0xF6000100 --second_offset 0xF2F00100 --tags_offset 0x00000100
+# misc flags
+TARGET_GLOBAL_CFLAGS   += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
+COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 
-# Prebuilt Kernel
-TARGET_PREBUILT_KERNEL := device/doogee/f5/kernel
-TARGET_RECOVERY_FSTAB := device/doogee/f5/fstab.mt6735
+# MTK Hardware
+BOARD_USES_MTK_HARDWARE := true
+BOARD_HAS_MTK_HARDWARE := true
+BOARD_USES_LEGACY_MTK_AV_BLOB := true
+COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
+# Mtk LP Camera Hal compat
+COMMON_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
 
-# Graphics Library Config
-BOARD_EGL_CFG := device/doogee/f5/configs/egl.cfg
+#TODO: rewrite gps hal (libEPOS)
+MTK_K64_SUPPORT := yes
+
+# EGL
+BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
+USE_OPENGL_RENDERER := true
+TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+DISABLE_ASHMEM_TRACKING := true
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
+PRESENT_TIME_OFFSET_FROM_VSYNC_NS := 0
+MTK_HWC_SUPPORT := yes
+MTK_HWC_VERSION := 1.4.1
+
+# Screen resolution
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_SCREEN_WIDTH := 1080
+
+# Bootanimation
+TARGET_BOOTANIMATION_NAME := 1080
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+TARGET_BOOTANIMATION_HALF_RES := true
 
 # system.prop
-TARGET_SYSTEM_PROP := device/doogee/f5/system.prop
+TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
-# CyanogenMod Hardware Hooks
-BOARD_HARDWARE_CLASS := device/doogee/f5/cmhw/
+# Vold
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
-# Fingerprint Sensor
-VANZO_FEATURE_ADD_SILEADINC_FP := yes
-VANZO_FEATURE_FACTORYMODE_USE_ENGLISH := yes
-
-# Recovery
-RECOVERY_FSTAB_VERSION := 2
-BOARD_HAS_NO_SELECT_BUTTON := true
-TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness\"
-
-# Mediatek flags
-#BOARD_HAS_MTK_HARDWARE := true
-#MTK_HARDWARE := true
-#COMMON_GLOBAL_CFLAGS += -DMTK_HARDWARE
-#COMMON_GLOBAL_CPPFLAGS += -DMTK_HARDWARE
-
-USE_OPENGL_RENDERER := true
-
-# Hack for building without kernel sources
-$(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
