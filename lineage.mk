@@ -18,21 +18,21 @@
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
-$(call inherit-product, $(LOCAL_PATH)/device_p8000.mk)
+$(call inherit-product, $(LOCAL_PATH)/device_f5.mk)
 
-TARGET_OTA_ASSERT_DEVICE := p8000,k05ts_a
+TARGET_OTA_ASSERT_DEVICE := f5,x5607_dg_a32
 
 # Sign the build with real certs
 # PS: if you're not me you need to generate your own certs
 # PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/moyster/keys/releasekey
 
 # Device identifier
-PRODUCT_BRAND := Elephone
-PRODUCT_DEVICE := p8000
-PRODUCT_MANUFACTURER := Elephone
-PRODUCT_MODEL := p8000
-PRODUCT_NAME := lineage_p8000
-PRODUCT_RELEASE_NAME := p8000
+PRODUCT_DEVICE := f5
+PRODUCT_NAME := lineage_f5
+PRODUCT_BRAND := DOOGEE
+PRODUCT_MODEL := F5
+PRODUCT_MANUFACTURER := Doogee
+PRODUCT_RELEASE_NAME := F5
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
 PRODUCT_DEFAULT_LANGUAGE := en

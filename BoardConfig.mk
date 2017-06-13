@@ -15,13 +15,13 @@
 #
 
 # Device path
-LOCAL_PATH := device/elephone/p8000
+LOCAL_PATH := device/doogee/f5
 
 # Device board elements
 include $(LOCAL_PATH)/PlatformConfig.mk
 include $(LOCAL_PATH)/board/*.mk
 
-TARGET_BOOTLOADER_BOARD_NAME := mt6753
+TARGET_BOOTLOADER_BOARD_NAME := x5607_dg_a32
 TARGET_NO_BOOTLOADER := true
 
 # misc flags
@@ -68,4 +68,7 @@ TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
+
+# Hack for building without kernel sources
+$(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
 
