@@ -23,7 +23,7 @@ TW_FLASH_FROM_STORAGE := true
 TW_EXTERNAL_STORAGE_PATH := "/external_sd"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_DEFAULT_EXTERNAL_STORAGE := true
-# name backup folders 'p8000' and not after MTK's fake hardware ID '1234567...'
+# name backup folders 'f5' and not after MTK's fake hardware ID '1234567...'
 TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
 # we have it and it's enforcing!
 TWHAVE_SELINUX := true

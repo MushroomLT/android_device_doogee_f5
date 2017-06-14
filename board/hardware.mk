@@ -8,7 +8,7 @@ TARGET_PROVIDES_LIBLIGHT := true
 TARGET_PROVIDES_INIT_RC := true
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/elephone/p8000/ril
+BOARD_RIL_CLASS := ../../../device/doogee/f5/ril
 BOARD_CONNECTIVITY_MODULE := conn_soc
 
 # GPS

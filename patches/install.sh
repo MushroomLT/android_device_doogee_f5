@@ -6,8 +6,8 @@ rootdirectory="$PWD"
 
 dirs="bionic build external/jpeg frameworks/av frameworks/base frameworks/native frameworks/rs hardware/libhardware system/netd system/vold"
 
-VENDOR=elephone
-DEVICE=p8000
+VENDOR=doogee
+DEVICE=f5
 # red + nocolor
 RED='\033[0;31m'
 NC='\033[0m'
