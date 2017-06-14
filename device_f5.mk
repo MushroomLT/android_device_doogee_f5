@@ -50,3 +50,10 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 BOARD_SEPOLICY_DIRS := \
        $(LOCAL_PATH)/sepolicy
 
+ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=0 \
+persist.sys.usb.config=mtp \
+persist.service.acm.enable=0 \
+persist.service.adb.enable=1 \
+ro.secure=0 \
+ro.allow.mock.location=0 \
+ro.debuggable=1

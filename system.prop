@@ -1,6 +1,6 @@
 #
 #
-# system.prop for P8000, thanks to jianminglok
+# system.prop for F5
 #
 
 rild.libpath=/system/lib64/mtk-ril.so
@@ -25,6 +25,9 @@ ro.sys.usb.mtp.whql.enable=0
 
 # Power off opt in IPO
 sys.ipo.pwrdncap=2
+
+# Disable SELinux for now
+ro.boot.selinux=0
 
 ro.sys.usb.storage.type=mtp,mass_storage
 
