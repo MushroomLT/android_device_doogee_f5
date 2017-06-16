@@ -1,0 +1,57 @@
+From c1f961a7e8c9ffe1aa14f4e1e417549d2908b47b Mon Sep 17 00:00:00 2001
+From: fire855 <thefire855@gmail.com>
+Date: Tue, 19 Apr 2016 20:17:40 +0200
+Subject: [PATCH] Fix camera symbol error
+
+Change-Id: I9feba27dcb27406c7ac0c239f23f9cd262518d05
+---
+ include/ui/GraphicBufferMapper.h | 2 +-
+ libs/ui/GraphicBuffer.cpp        | 2 +-
+ libs/ui/GraphicBufferMapper.cpp  | 4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/include/ui/GraphicBufferMapper.h b/include/ui/GraphicBufferMapper.h
+index 99006248275..f1c3af2f49c 100644
+--- a/include/ui/GraphicBufferMapper.h
++++ b/include/ui/GraphicBufferMapper.h
+@@ -43,7 +43,7 @@ class GraphicBufferMapper : public Singleton<GraphicBufferMapper>
+     status_t unregisterBuffer(buffer_handle_t handle);
+ 
+     status_t lock(buffer_handle_t handle,
+-            uint32_t usage, const Rect& bounds, void** vaddr);
++            int usage, const Rect& bounds, void** vaddr);
+ 
+     status_t lockYCbCr(buffer_handle_t handle,
+             uint32_t usage, const Rect& bounds, android_ycbcr *ycbcr);
+diff --git a/libs/ui/GraphicBuffer.cpp b/libs/ui/GraphicBuffer.cpp
+index 992c1fe6b1d..a0308d9826f 100644
+--- a/libs/ui/GraphicBuffer.cpp
++++ b/libs/ui/GraphicBuffer.cpp
+@@ -200,7 +200,7 @@ status_t GraphicBuffer::lock(uint32_t inUsage, const Rect& rect, void** vaddr)
+                 width, height);
+         return BAD_VALUE;
+     }
+-    status_t res = getBufferMapper().lock(handle, inUsage, rect, vaddr);
++    status_t res = getBufferMapper().lock(handle, static_cast<int>(inUsage), rect, vaddr);
+     return res;
+ }
+ 
+diff --git a/libs/ui/GraphicBufferMapper.cpp b/libs/ui/GraphicBufferMapper.cpp
+index 0580e160f61..cabde95b76f 100644
+--- a/libs/ui/GraphicBufferMapper.cpp
++++ b/libs/ui/GraphicBufferMapper.cpp
+@@ -78,12 +78,12 @@ status_t GraphicBufferMapper::unregisterBuffer(buffer_handle_t handle)
+ }
+ 
+ status_t GraphicBufferMapper::lock(buffer_handle_t handle,
+-        uint32_t usage, const Rect& bounds, void** vaddr)
++        int usage, const Rect& bounds, void** vaddr)
+ {
+     ATRACE_CALL();
+     status_t err;
+ 
+-    err = mAllocMod->lock(mAllocMod, handle, static_cast<int>(usage),
++    err = mAllocMod->lock(mAllocMod, handle, usage,
+             bounds.left, bounds.top, bounds.width(), bounds.height(),
+             vaddr);
+ 

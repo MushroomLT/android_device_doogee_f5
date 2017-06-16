@@ -1,0 +1,108 @@
+From b7c9413741b03b7393d5f7b105bd1e9c77c23e3e Mon Sep 17 00:00:00 2001
+From: fire855 <thefire855@gmail.com>
+Date: Tue, 19 Apr 2016 20:16:45 +0200
+Subject: [PATCH] Add missing symbols
+
+Change-Id: Ifca73df99fffe3ddcdfc4df31e7e98c32d59c771
+---
+ libs/binder/Android.mk        |  1 +
+ libs/binder/MediatekHacks.cpp |  7 +++++++
+ libs/gui/Android.mk           |  1 +
+ libs/gui/MediatekHacks.cpp    | 16 ++++++++++++++++
+ libs/ui/Android.mk            |  3 ++-
+ libs/ui/MediatekHacks.cpp     | 11 +++++++++++
+ 6 files changed, 38 insertions(+), 1 deletion(-)
+ create mode 100644 libs/binder/MediatekHacks.cpp
+ create mode 100644 libs/gui/MediatekHacks.cpp
+ create mode 100644 libs/ui/MediatekHacks.cpp
+
+diff --git a/libs/binder/Android.mk b/libs/binder/Android.mk
+index b12eda8e9f7..1550fd05c92 100644
+--- a/libs/binder/Android.mk
++++ b/libs/binder/Android.mk
+@@ -37,6 +37,7 @@ sources := \
+     ProcessState.cpp \
+     Static.cpp \
+     TextOutput.cpp \
++    MediatekHacks.cpp
+ 
+ ifeq ($(BOARD_NEEDS_MEMORYHEAPION),true)
+ sources += \
+diff --git a/libs/binder/MediatekHacks.cpp b/libs/binder/MediatekHacks.cpp
+new file mode 100644
+index 00000000000..003b9b75280
+--- /dev/null
++++ b/libs/binder/MediatekHacks.cpp
+@@ -0,0 +1,7 @@
++extern "C" {
++    void _ZN7android6Parcel13writeString16EPKDsj(char16_t const*, unsigned int);
++
++    void _ZN7android6Parcel13writeString16EPKtj(unsigned short const* str, unsigned int len){
++        _ZN7android6Parcel13writeString16EPKDsj((char16_t const*)str, len);
++    }
++}
+diff --git a/libs/gui/Android.mk b/libs/gui/Android.mk
+index 76aec6ea611..28132076c27 100644
+--- a/libs/gui/Android.mk
++++ b/libs/gui/Android.mk
+@@ -70,6 +70,7 @@ LOCAL_SRC_FILES := \
+ 	SurfaceControl.cpp \
+ 	SurfaceComposerClient.cpp \
+ 	SyncFeatures.cpp \
++	MediatekHacks.cpp
+ 
+ LOCAL_SHARED_LIBRARIES := \
+ 	libbinder \
+diff --git a/libs/gui/MediatekHacks.cpp b/libs/gui/MediatekHacks.cpp
+new file mode 100644
+index 00000000000..251498400c7
+--- /dev/null
++++ b/libs/gui/MediatekHacks.cpp
+@@ -0,0 +1,16 @@
++#include <gui/IGraphicBufferAlloc.h>
++extern "C" {
++    void _ZN7android11BufferQueueC1ERKNS_2spINS_19IGraphicBufferAllocEEE(const android::sp<android::IGraphicBufferAlloc>& allocator);
++    void _ZN7android11BufferQueueC2ERKNS_2spINS_19IGraphicBufferAllocEEE(const android::sp<android::IGraphicBufferAlloc>& allocator);
++
++    void _ZN7android11BufferQueueC1ERKNS_2spINS_19IGraphicBufferAllocEEE(const android::sp<android::IGraphicBufferAlloc>& allocator){
++        _ZN7android11BufferQueueC2ERKNS_2spINS_19IGraphicBufferAllocEEE(allocator);
++    }
++
++    void _ZN7android14SurfaceControl8setLayerEi(int32_t);
++    void _ZN7android14SurfaceControl8setLayerEj(uint32_t);
++
++    void _ZN7android14SurfaceControl8setLayerEi(int32_t layer){
++        _ZN7android14SurfaceControl8setLayerEj(static_cast<uint32_t>(layer));
++    }
++}
+diff --git a/libs/ui/Android.mk b/libs/ui/Android.mk
+index a8eb67b348e..a87d241b4ae 100644
+--- a/libs/ui/Android.mk
++++ b/libs/ui/Android.mk
+@@ -43,7 +43,8 @@ LOCAL_SRC_FILES := \
+ 	PixelFormat.cpp \
+ 	Rect.cpp \
+ 	Region.cpp \
+-	UiConfig.cpp
++	UiConfig.cpp \
++	MediatekHacks.cpp
+ 
+ LOCAL_SHARED_LIBRARIES := \
+ 	libcutils \
+diff --git a/libs/ui/MediatekHacks.cpp b/libs/ui/MediatekHacks.cpp
+new file mode 100644
+index 00000000000..1a8156ae6ad
+--- /dev/null
++++ b/libs/ui/MediatekHacks.cpp
+@@ -0,0 +1,11 @@
++#include <ui/GraphicBufferMapper.h>
++#include <ui/Rect.h>
++
++extern "C" {
++    void _ZN7android19GraphicBufferMapper9lockYCbCrEPK13native_handlejRKNS_4RectEP13android_ycbcr(buffer_handle_t, uint32_t, const android::Rect&, android_ycbcr*);
++    void _ZN7android19GraphicBufferMapper9lockYCbCrEPK13native_handleiRKNS_4RectEP13android_ycbcr(buffer_handle_t, int, const android::Rect&, android_ycbcr*);
++
++    void _ZN7android19GraphicBufferMapper9lockYCbCrEPK13native_handleiRKNS_4RectEP13android_ycbcr(buffer_handle_t handle, int usage, const android::Rect& bounds, android_ycbcr *ycbcr) {
++        _ZN7android19GraphicBufferMapper9lockYCbCrEPK13native_handlejRKNS_4RectEP13android_ycbcr(handle, static_cast<uint32_t>(usage), bounds, ycbcr);
++    }
++}
